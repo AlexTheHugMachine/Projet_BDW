@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="butt" style="text-align: center; margin: 1rem;">
-        <button class="btn btn-primary btn-xl" type="reset">Annuler</button>
+        <a class="btn btn-primary btn-xl" type="text" href="index.html">Annuler</a>
         <button class="btn btn-primary btn-xl" type="submit" name="valider">Se connecter</button></div>
       </div>
     </div>
