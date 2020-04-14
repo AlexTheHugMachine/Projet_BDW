@@ -10,8 +10,6 @@
 </head>
 
 <body>
-
-  <!-- à compléter -->
 </br>
 </br>
   <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Inscription</h2>
@@ -47,9 +45,8 @@
         <button class="btn btn-primary btn-xl" type="submit" name="valider">S'inscrire</button>
       </div>
     </div>
-    <div style="text-align: center; margin: 1rem;"> <a href="./connexion.php">Déjà inscrit ?</a> </div>
+    <div style="text-align: center; margin: 1rem;"> <a href="./connexion.php">Vous vous êtes déjà inscrit ?</a> </div>
   </form>
-
 </body>
 
 </html>
@@ -75,10 +72,10 @@ if (isset($_POST["valider"])) {
       header('Location: connexion.php?subscribe=yes');
       exit();
     } else {
-      echo "Le pseudo demand&eacute; est d&eacute;j&agrave; utilis&eacute;";
+      echo "Le pseudo demandé est déjà utilisé, choisissez en un autre";
     }
   } else {
-     echo "Les mots de passe ne correspondent pas, veuillez r&eacute;essayer";
+     echo "Les mots de passe ne correspondent pas, veuillez réessayer";
   }
 }
 ?>

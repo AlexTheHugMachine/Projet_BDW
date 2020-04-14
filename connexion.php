@@ -5,11 +5,10 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Page Connexion</title>
+  <title>Connexion</title>
 </head>
 
 <body>
-  <!-- à compléter -->
 </br>
 </br>
   <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Connexion</h2>
@@ -39,7 +38,7 @@
         <button class="btn btn-primary btn-xl" type="submit" name="valider">Se connecter</button></div>
       </div>
     </div>
-    <div style="text-align: center; margin: 1rem;"> <a href="./inscription.php">Première connexion ?</a> </div>
+    <div style="text-align: center; margin: 1rem;"> <a href="./inscription.php">Vous voulez créer un compte ?</a> </div>
 
   </form>
 </body>
@@ -68,7 +67,7 @@ if (isset($_POST["valider"])) {
     exit();
   } 
   else {
-    $stateMsg = "Le couple pseudo/mot de passe ne correspond à aucun utilisateur enregistré";
+    $stateMsg = "Le pseudo ou mot de passe rentré, ne correspond à aucun compte enregistré";
   }
 echo $stateMsg;
 }
