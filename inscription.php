@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="butt" style="text-align: center; margin: 1rem;">
-        <a class="btn btn-primary btn-xl" type="text" href="index.php">Annuler</a>
+        <a class="btn btn-primary btn-xl" type="text" href="index.html">Annuler</a>
         <button class="btn btn-primary btn-xl" type="submit" name="valider">S'inscrire</button>
       </div>
     </div>
