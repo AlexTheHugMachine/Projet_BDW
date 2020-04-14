@@ -10,7 +10,7 @@ $pseudo = $_SESSION['pseudo'];
 if(isset($_POST['Deconnecter'])) {
 	setDisconnected($pseudo, $link);
 	session_unset();
-	header('Location: index.html?subscribe=yes');
+	header('Location: index.html?subscribe=no');
 }
 
 ?>
