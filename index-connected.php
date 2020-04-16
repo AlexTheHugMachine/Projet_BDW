@@ -71,6 +71,21 @@ if(isset($_POST['Deconnecter'])) {
                     <div class="divider-custom-line"></div>
                 </div>
             </div>
+            <?php
+                require_once("fonctions/requetesql.php");
+
+                $link = getConnection("localhost", "root", "", "ProjetBDW");
+                $resultat = afficheimage($link);
+                $i = 0;
+
+                foreach($resultat as $r)
+                {
+                    echo '<img src="assets/img/'.$r['nomFich'].'"/> ';
+                    $i = $i+1;
+                }
+
+                closeConnexion($link);
+            ?>
         </section>
         <!-- About Section-->
         <section class="page-section bg-primary text-white mb-0" id="apropos">
