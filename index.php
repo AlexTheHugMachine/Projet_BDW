@@ -50,6 +50,19 @@
                     <div class="divider-custom-line"></div>
                 </div>
             </div>
+            <?php
+                require_once("fonctions/requetesql.php");
+
+                $link = getConnection("localhost", "root", "", "ProjetBDW");
+                $resultat = afficheimage($link);
+            
+                foreach($resultat as $r)
+                {
+                    echo '<img src="assets/img/'.$r[0].'"/> ';
+                }
+
+                closeConnexion($link);
+            ?>
         </section>
         <!-- About Section-->
         <section class="page-section bg-primary text-white mb-0" id="apropos">
