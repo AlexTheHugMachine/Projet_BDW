@@ -1,3 +1,22 @@
+<?php
+
+session_start();
+include_once('./fonctions/bd.php');
+include_once('./fonctions/utilisateur.php');
+
+$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+$pseudo = $_SESSION['pseudo'];
+
+if(isset($_POST['Deconnecter'])) {
+	setDisconnected($pseudo, $link);
+	session_unset();
+	header('Location: index.php?subscribe=no');
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -18,7 +37,9 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#galerie">Galerie</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#apropos">A propos</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="connexion.php">Connexion</a></li>
+                        <form action ="index-connected.php" method="post">
+			                <button name="Deconnecter" class="btn btn-primary btn">Se Déconnecter</button>
+		                </form>
                     </ul>
                 </div>
             </div>
@@ -66,10 +87,6 @@
                 <div class="row">
                     <div class="col-lg-4 ml-auto"><p class="lead">MemePlanet est une plateforme gratuite pour consulter les photos mises en ligne par vos amis, ou même le monde entier ! Vous pouvez également créer un compte ou vous connecter pour mettre vos propres photos !</p></div>
                     <div class="col-lg-4 mr-auto"><p class="lead">A vous de voir quelles photo mettre ! Que ce soit une photo de votre chien, ou d'un paysage, MemePlanet accepte tout ! Mais ce qu'on préfère ici... Ce sont les memes !</p></div>
-                </div>
-                <!-- About Section Button -->
-                <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href=connexion.php>Inscrivez vous dès maintenant !</a>
                 </div>
             </div>
         </section>
