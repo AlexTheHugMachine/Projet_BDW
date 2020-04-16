@@ -7,7 +7,7 @@
     {
         $requete = "SELECT nomFich FROM Photo";
         $var = executeQuery($link, $requete);
-        return mysqli_fetch_all($var);
+        return $var;
     }
 
 ?>

@@ -55,10 +55,12 @@
 
                 $link = getConnection("localhost", "root", "", "ProjetBDW");
                 $resultat = afficheimage($link);
-            
+                $i = 0;
+
                 foreach($resultat as $r)
                 {
-                    echo '<img src="assets/img/'.$r[0].'"/> ';
+                    echo '<img src="assets/img/'.$r['nomFich'].'"/> ';
+                    $i = $i+1;
                 }
 
                 closeConnexion($link);
