@@ -70,6 +70,16 @@ if(isset($_POST['Deconnecter'])) {
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
+                <form action ="ajouter.php" method="post">
+			        <button name="ajouter" class="btn btn-outline-primary">ajouter une photo</button>
+		        </form>
+				<label>Choisissez une categorie:</label>
+				<SELECT name="categorie" size="1" required>
+					<OPTION>none
+					<OPTION>none
+					<OPTION>none
+					<OPTION>none
+				</SELECT>
             </div>
             <?php
                 require_once("fonctions/requetesql.php");

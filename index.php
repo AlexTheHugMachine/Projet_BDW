@@ -49,6 +49,13 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
+                <label>Choisissez une categorie:</label>
+				<SELECT name="categorie" size="1" required>
+					<OPTION>none
+					<OPTION>none
+					<OPTION>none
+					<OPTION>none
+				</SELECT>
             </div>
             <?php
                 require_once("fonctions/requetesql.php");
