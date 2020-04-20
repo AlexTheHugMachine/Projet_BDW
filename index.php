@@ -57,6 +57,7 @@
 					<OPTION>none
 				</SELECT>
             </div>
+            <div class = "img-container">
             <?php
                 require_once("fonctions/requetesql.php");
 
@@ -72,6 +73,7 @@
 
                 closeConnexion($link);
             ?>
+            </div>
         </section>
         <!-- About Section-->
         <section class="page-section bg-primary text-white mb-0" id="apropos">

@@ -198,8 +198,15 @@ figure {
 }
 
 img {
-  vertical-align: middle;
   border-style: none;
+  width: 400px;
+  height: 400px;
+  padding: 20px;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
 }
 
 svg {
