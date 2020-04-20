@@ -37,9 +37,13 @@ if(isset($_POST['Deconnecter'])) {
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#galerie">Galerie</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#apropos">A propos</a></li>
+                        <?php
+                            $pseudo = $_SESSION['pseudo'];
+                            echo "<p>Connecté avec le compte : $pseudo</p>";
+                        ?>
                         <form action ="index-connected.php" method="post">
-			                <button name="Deconnecter" class="btn btn-primary btn">Se Déconnecter</button>
-		                </form>
+                            <button name="Deconnecter" class="btn btn-primary btn">Se Déconnecter</button>
+                        </form>
                     </ul>
                 </div>
             </div>

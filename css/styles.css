@@ -71,6 +71,12 @@ body {
   background-color: #fff;
 }
 
+p {
+  color: #b8a817;
+  padding-right: 20px;
+  padding-top: 15px;
+}
+
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }
