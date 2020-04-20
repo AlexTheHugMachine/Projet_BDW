@@ -60,7 +60,7 @@ if(isset($_POST['Deconnecter'])) {
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">La nouvelle application pour partager vos memes et voir ceux de vos amis ou du monde entier !</p>
+                <div class="masthead-subheading font-weight-light mb-0">La nouvelle application pour partager vos memes et voir ceux de vos amis ou du monde entier !</div>
             </div>
         </header>
         <!-- Portfolio Section-->
@@ -85,21 +85,23 @@ if(isset($_POST['Deconnecter'])) {
 					<OPTION>none
 				</SELECT>
             </div>
-            <?php
-                require_once("fonctions/requetesql.php");
+            <div class = "img-container">
+                <?php
+                    require_once("fonctions/requetesql.php");
 
-                $link = getConnection("localhost", "root", "", "ProjetBDW");
-                $resultat = afficheimage($link);
-                $i = 0;
+                    $link = getConnection("localhost", "root", "", "ProjetBDW");
+                    $resultat = afficheimage($link);
+                    $i = 0;
 
-                foreach($resultat as $r)
-                {
-                    echo '<img src="assets/img/'.$r['nomFich'].'"/> ';
-                    $i = $i+1;
-                }
+                    foreach($resultat as $r)
+                    {
+                        echo '<img src="assets/img/'.$r['nomFich'].'"/> ';
+                        $i = $i+1;
+                    }
 
-                closeConnexion($link);
-            ?>
+                    closeConnexion($link);
+                ?>
+            </div>
         </section>
         <!-- About Section-->
         <section class="page-section bg-primary text-white mb-0" id="apropos">
@@ -114,8 +116,8 @@ if(isset($_POST['Deconnecter'])) {
                 </div>
                 <!-- About Section Content-->
                 <div class="row">
-                    <div class="col-lg-4 ml-auto"><p class="lead">MemePlanet est une plateforme gratuite pour consulter les photos mises en ligne par vos amis, ou même le monde entier ! Vous pouvez également créer un compte ou vous connecter pour mettre vos propres photos !</p></div>
-                    <div class="col-lg-4 mr-auto"><p class="lead">A vous de voir quelles photo mettre ! Que ce soit une photo de votre chien, ou d'un paysage, MemePlanet accepte tout ! Mais ce qu'on préfère ici... Ce sont les memes !</p></div>
+                    <div class="col-lg-4 ml-auto"><div class="lead">MemePlanet est une plateforme gratuite pour consulter les photos mises en ligne par vos amis, ou même le monde entier ! Vous pouvez également créer un compte ou vous connecter pour mettre vos propres photos !</div></div>
+                    <div class="col-lg-4 mr-auto"><div class="lead">A vous de voir quelles photo mettre ! Que ce soit une photo de votre chien, ou d'un paysage, MemePlanet accepte tout ! Mais ce qu'on préfère ici... Ce sont les memes !</div></div>
                 </div>
             </div>
         </section>
