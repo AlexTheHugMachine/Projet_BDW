@@ -1,47 +1,71 @@
-
 <?php
 $target_dir = "assets/img/";
 $target_image = $target_dir . basename($_imageS["update"]["name"]);
 $uploadOk = 1;
 $imageimageType = strtolower(pathinfo($target_image,PATHINFO_EXTENSION));
-// Check if image image is a actual image or fake image
+// Vérifier si l'image est une image réelle ou une fausse image
 if(isset($_POST["submit"])) {
     $check = getimagesize($_imageS["update"]["tmp_name"]);
     if($check !== false) {
-        echo "image is an image - " . $check["mime"] . ".";
+        echo "le fichier est une image " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
-        echo "image is not an image.";
+        echo "le fichier n'est pas une image.";
         $uploadOk = 0;
     }
 }
-// Check if image already exists
+// Vérifier si l'image existe déjà
 if (image_exists($target_image)) {
-    echo "Sorry, image already exists.";
+    echo "Désolé, l'image existe déjà.";
     $uploadOk = 0;
 }
-// Check image size
-if ($_imageS["update"]["size"] > 500000) {
-    echo "Sorry, your image is too large.";
+// Vérifier la taille de l'image
+if ($_imageS["update"]["size"] > 100000) {
+    echo "Désolé, votre image est trop grande.";
     $uploadOk = 0;
 }
-// Allow certain image formats
-if($imageimageType != "jpg" && $imageimageType != "png" && $imageimageType != "jpeg"
-&& $imageimageType != "gif" ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF images are allowed.";
+// Autoriser certains formats d'images
+if($imageimageType != "png" && $imageimageType != "jpeg" && $imageimageType != "gif" ) {
+    echo "Désolé, seules les imagesJPEG, PNG et GIF sont autorisées";
     $uploadOk = 0;
 }
-// Check if $uploadOk is set to 0 by an error
+// Vérifiez si $uploadOk est mis à 0 par une erreur
 if ($uploadOk == 0) {
-    echo "Sorry, your image was not uploaded.";
-// if everything is ok, try to upload image
+    echo "Désolé, votre image n'a pas été téléchargée";
+// if everything is ok, on telecharge l'image
 } else {
     if (move_uploaded_image($_imageS["update"]["tmp_name"], $target_image)) {
-        echo "The image ". basename( $_imageS["update"]["name"]). " has been uploaded.";
+        echo "limage ". basename( $_imageS["update"]["name"]). " a été mis en téléchargée.";
     } else {
-        echo "Sorry, there was an error uploading your image.";
+        echo "Désolé, il y a eu une erreur lors du téléchargement de votre image.";
     }
 }
+?>
+<?php
+	include_once('./fonctions/bd.php');
+	include_once('./fonctions/utilisateur.php');
+    // Si le bouton de téléchargement est cliqué ...
+	if (isset($_POST['upload'])) {
+  	// Get le nom de l'image
+  	$nomFich = $_FILES['nomFich']['name'];
+  	// Get la description de l'image
+  	$description = mysqli_real_escape_string($db, $_POST['description']);
+	//get la categorie
+	//$catId=
+  	// répertoire du fichier d'images
+  	$target = "assets/img/".basename($nomFich);
+
+  	$sql = "INSERT INTO images (nomFich, description) VALUES ('$nomFich', '$description')";
+  	// executer query
+  	mysqli_query($db, $sql);
+
+  	if (move_uploaded_file($_FILES['nomFich']['tmp_name'], $target)) {
+  		$msg = "Image téléchargée avec succès";
+  	}else{
+  		$msg = "Impossible de télécharger l'image";
+  	}
+  }
+  $result = mysqli_query($db, "SELECT * FROM images");
 ?>
 
 <!doctype html>
