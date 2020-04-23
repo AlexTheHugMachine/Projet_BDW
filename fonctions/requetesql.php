@@ -19,20 +19,19 @@
         }
     }
 
-    function AfficherImageCategorie($link)
+    function AfficherImageCategorie($Idcategorie, $link)
     {
         if(isset($_POST['Valider']))
         {
             $image=$_POST['categorie'];
-            $query = "SELECT C.nomCat, P.nomFich, P.catId, P.description FROM Photo P join Categorie C ON C.catId=P.catId ;";
-            /*if(($image==''))
+            if($image=='Tout')
             {
-                $query = "SELECT C.nomCat, P.nomFich, P.catId, P.description FROM Photo P join Categorie C ON C.catId=P.catId ;";
+                $query = "SELECT nomFich FROM Photo";
             }
             else
             {
-                $query = 'SELECT C.nomCat, P.nomFich, P.catId, P.description FROM Photo P join Categorie C ON C.catId=P.catId ;';
-            }*/
+                $query = "SELECT photoId,nomFich FROM `Photo` WHERE catId =$Idcategorie; ";
+            }
         }
         $resultat = executeQuery($link, $query);
         $i = 0;

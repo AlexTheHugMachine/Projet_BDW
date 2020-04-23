@@ -50,8 +50,9 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <label>Selectionnez la catégorie :</label>
-                <form action="index.php" method="POST">
+                <form action="index.php#galerie" method="POST">
                     <SELECT id="categorie" name="categorie" required>
+                        <OPTION name="Tout"> Tout</OPTION>
                         <?php
                             require_once("fonctions/requetesql.php");
                             $link = getConnection("localhost", "root", "", "ProjetBDW");
@@ -64,7 +65,7 @@
             </div>
             <div class = "img-container">
                 <?php
-                    AfficherImageCategorie($link);
+                    AfficherImageCategorie($_POST['categorie'], $link);
                     closeConnexion($link);
                 ?>
             </div>
