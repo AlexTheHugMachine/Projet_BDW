@@ -49,28 +49,22 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <label>Choisissez une categorie:</label>
-				<SELECT name="categorie" size="1" required>
-					<OPTION>none
-					<OPTION>none
-					<OPTION>none
-					<OPTION>none
-				</SELECT>
+                <label>Selectionnez la catégorie :</label>
+                <form action="index.php" method="POST">
+                    <SELECT id="categorie" name="categorie" required>
+                        <?php
+                            require_once("fonctions/requetesql.php");
+                            $link = getConnection("localhost", "root", "", "ProjetBDW");
+                            RecupImageCategorie($link);
+                            closeConnexion($link);
+                        ?>
+				    </SELECT>
+                    <input type="submit" name="Valider" value="OK" />
+                </form>
             </div>
             <div class = "img-container">
                 <?php
-                    require_once("fonctions/requetesql.php");
-
-                    $link = getConnection("localhost", "root", "", "ProjetBDW");
-                    $resultat = afficheimage($link);
-                    $i = 0;
-
-                    foreach($resultat as $r)
-                    {
-                        echo '<img src="assets/img/'.$r['nomFich'].'"/> ';
-                        $i = $i+1;
-                    }
-
+                    AfficherImageCategorie($link);
                     closeConnexion($link);
                 ?>
             </div>
