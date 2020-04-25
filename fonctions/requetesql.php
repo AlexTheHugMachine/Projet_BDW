@@ -26,11 +26,11 @@
             $image=$_POST['categorie'];
             if($image=='Tout')
             {
-                $query = "SELECT C.nomCat, P.nomFich,`description` FROM Photo P JOIN Categorie C ON C.catId=P.catId; ";
+                $query = "SELECT C.nomCat, P.nomFich, P.description FROM Photo P JOIN Categorie C ON C.catId=P.catId; ";
             }
             else
             {
-                $query = "SELECT C.nomCat, P.photoId, P.nomFich,`description` FROM Photo P JOIN Categorie C ON C.catId=P.catId WHERE catId =$Idcategorie; ";
+                $query = "SELECT C.nomCat, P.photoId, P.nomFich, P.description FROM Photo P JOIN Categorie C ON C.catId=P.catId WHERE P.catId =$Idcategorie; ";
             }
         }
         $resultat = executeQuery($link, $query);
