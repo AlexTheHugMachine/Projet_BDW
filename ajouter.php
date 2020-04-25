@@ -4,15 +4,16 @@
 	$imageimageType = strtolower(pathinfo($target,PATHINFO_EXTENSION));
     // Si le bouton de téléchargement est cliqué ...
 	if (isset($_POST['upload'])) {
+  	$target = "assets/img/".basename($nomFich);
   	// Get le nom de l'image
   	$nomFich = $_FILES['nomFich']['name'];
   	// Get la description de l'image
   	$description = mysqli_real_escape_string($db, $_POST['description']);
+  	$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+	$check = getUser($nomFich, $description);
 	//get la categorie
 	//$catId=
   	// répertoire du fichier d'images
-  	$target = "assets/img/".basename($nomFich);
-
   	$sql = "INSERT INTO images (nomFich, description) VALUES ('$nomFich', '$description')";
   	// Vérifier si l'image existe déjà
 	if (image_exists($target)) {
