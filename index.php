@@ -73,7 +73,14 @@
             </div>
             <div class = "img-container">
                 <?php
-                    AfficherImageCategorie($_POST['categorie'], $link);
+                    if($_POST==NULL)
+                    {
+                        AfficherToutesLesImages();
+                    }
+                    else
+                    {
+                        AfficherImageCategorie($_POST['categorie'], $link);
+                    }
                     closeConnexion($link);
                 ?>
             </div>
