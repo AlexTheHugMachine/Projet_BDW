@@ -1,49 +1,7 @@
 <?php
-$target_dir = "assets/img/";
-$target_image = $target_dir . basename($_imageS["update"]["name"]);
-$uploadOk = 1;
-$imageimageType = strtolower(pathinfo($target_image,PATHINFO_EXTENSION));
-// Vérifier si l'image est une image réelle ou une fausse image
-if(isset($_POST["submit"])) {
-    $check = getimagesize($_imageS["update"]["tmp_name"]);
-    if($check !== false) {
-        echo "le fichier est une image " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "le fichier n'est pas une image.";
-        $uploadOk = 0;
-    }
-}
-// Vérifier si l'image existe déjà
-if (image_exists($target_image)) {
-    echo "Désolé, l'image existe déjà.";
-    $uploadOk = 0;
-}
-// Vérifier la taille de l'image
-if ($_imageS["update"]["size"] > 100000) {
-    echo "Désolé, votre image est trop grande.";
-    $uploadOk = 0;
-}
-// Autoriser certains formats d'images
-if($imageimageType != "png" && $imageimageType != "jpeg" && $imageimageType != "gif" ) {
-    echo "Désolé, seules les imagesJPEG, PNG et GIF sont autorisées";
-    $uploadOk = 0;
-}
-// Vérifiez si $uploadOk est mis à 0 par une erreur
-if ($uploadOk == 0) {
-    echo "Désolé, votre image n'a pas été téléchargée";
-// if everything is ok, on telecharge l'image
-} else {
-    if (move_uploaded_image($_imageS["update"]["tmp_name"], $target_image)) {
-        echo "limage ". basename( $_imageS["update"]["name"]). " a été mis en téléchargée.";
-    } else {
-        echo "Désolé, il y a eu une erreur lors du téléchargement de votre image.";
-    }
-}
-?>
-<?php
 	include_once('./fonctions/bd.php');
 	include_once('./fonctions/utilisateur.php');
+	$imageimageType = strtolower(pathinfo($target,PATHINFO_EXTENSION));
     // Si le bouton de téléchargement est cliqué ...
 	if (isset($_POST['upload'])) {
   	// Get le nom de l'image
@@ -56,6 +14,18 @@ if ($uploadOk == 0) {
   	$target = "assets/img/".basename($nomFich);
 
   	$sql = "INSERT INTO images (nomFich, description) VALUES ('$nomFich', '$description')";
+  	// Vérifier si l'image existe déjà
+	if (image_exists($target)) {
+		echo "Désolé, l'image existe déjà.";
+    }
+	// Vérifier la taille de l'image
+	if ($_imageS["update"]["size"] > 100000) {
+		echo "Désolé, votre image est trop grande.";
+    }
+	// Autoriser certains formats d'images
+	if($imageimageType != "png" && $imageimageType != "jpeg" && $imageimageType != "gif" ) {
+    echo "Désolé, seules les imagesJPEG, PNG et GIF sont autorisées";
+    }
   	// executer query
   	mysqli_query($db, $sql);
 
@@ -65,7 +35,6 @@ if ($uploadOk == 0) {
   		$msg = "Impossible de télécharger l'image";
   	}
   }
-  $result = mysqli_query($db, "SELECT * FROM images");
 ?>
 
 <!doctype html>
