@@ -1,20 +1,19 @@
 <?php
 	include_once('./fonctions/bd.php');
 	include_once('./fonctions/utilisateur.php');
+	$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 	$imageimageType = strtolower(pathinfo($target,PATHINFO_EXTENSION));
     // Si le bouton de téléchargement est cliqué ...
-	if (isset($_POST['upload'])) {
+	if (isset($_POST['envoyer'])) {
   	$target = "assets/img/".basename($nomFich);
   	// Get le nom de l'image
   	$nomFich = $_FILES['nomFich']['name'];
   	// Get la description de l'image
-  	$description = mysqli_real_escape_string($db, $_POST['description']);
-  	$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+  	$description = mysqli_real_escape_string($link, $_POST['description']);
 	//get la categorie
 	$catId= $_POST["catID"];
   	// répertoire du fichier d'images$
-  	link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
-  	$sql = "INSERT INTO images (nomFich, description,catID) VALUES ('$nomFich', '$description','$catID')";
+	$sql = "INSERT INTO Photo (nomFich, `description`,catID) VALUES ('$nomFich', '$description','$catID')";
   	// Vérifier si l'image existe déjà
 	if (image_exists($target)) {
 		echo "Désolé, l'image existe déjà.";
@@ -28,7 +27,7 @@
     echo "Désolé, seules les imagesJPEG, PNG et GIF sont autorisées";
     }
   	// executer query
-  	mysqli_query($db, $sql);
+  	executeQuery($link, $sql);
 
   	if (move_uploaded_file($_FILES['nomFich']['tmp_name'], $target)) {
   		$msg = "Image téléchargée avec succès";
@@ -102,16 +101,21 @@
 				<br>
 				<br>
 				<label>Choisir une categorie:</label>
-				<SELECT name="categorie" size="1" required>
-				<OPTION>none
-				<OPTION>none
-				<OPTION>none
-				<OPTION>none
-				</SELECT>
+				<SELECT id="categorie" name="categorie">
+                        <?php
+                            require_once("fonctions/requetesql.php");
+                            $link = getConnection("localhost", "root", "", "ProjetBDW");
+                            RecupImageCategorie($link);
+							closeConnexion($link);
+                        ?>
+				    </SELECT>
 				<br>
 				<input type="submit" value="envoyer" name="submit">
 			</form>
             </div>
-			
+			<?php
+			$nomFich = $_FILES['nomFich']['name'];
+			echo $nomFich;
+			?>
 	</body>
 </html>
