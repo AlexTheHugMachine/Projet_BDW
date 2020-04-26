@@ -78,6 +78,11 @@ p {
   padding-top: 15px;
 }
 
+.img-responsive {
+  display: flex;
+  justify-content: center;
+}
+
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }
