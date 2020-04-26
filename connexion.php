@@ -63,7 +63,14 @@ if (isset($_POST["valider"])) {
     $_SESSION["pseudo"]= $pseudo;
     $_SESSION["mdp"]= $hashMdp;
     setConnected($pseudo, $link);
-    header('Location: index-connected.php?subscribe=yes');
+    if($_POST["pseudo"]=="admin")
+    {
+      header('Location: index-admin.php');
+    }
+    else
+    {
+      header('Location: index-connected.php?subscribe=yes');
+    }
     exit();
   } 
   else {
