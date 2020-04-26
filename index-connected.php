@@ -100,18 +100,20 @@ if(isset($_POST['Deconnecter'])) {
                     <input type="submit" name="Valider" value="OK" />
                 </form>
             </div>
-            <div class = "img-container">
-                <?php
-                    if($_POST==NULL)
-                    {
-                        AfficherToutesLesImages();
-                    }
-                    else
-                    {
-                        AfficherImageCategorie($_POST['categorie'], $link);
-                    }
-                    closeConnexion($link);
-                ?>
+            <div class = "img-responsive">
+                <div class = "row">
+                    <?php
+                        if($_POST==NULL)
+                        {
+                            AfficherToutesLesImages();
+                        }
+                        else
+                        {
+                            AfficherImageCategorie($_POST['categorie'], $link);
+                        }
+                        closeConnexion($link);
+                    ?>
+                </div>
             </div>
         </section>
         <!-- About Section-->

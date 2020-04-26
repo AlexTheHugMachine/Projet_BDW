@@ -72,19 +72,19 @@
                 </form>
             </div>
             <div class = "img-responsive">
-            <div class = "row">
-                <?php
-                    if($_POST==NULL)
-                    {
-                        AfficherToutesLesImages();
-                    }
-                    else
-                    {
-                        AfficherImageCategorie($_POST['categorie'], $link);
-                    }
-                    closeConnexion($link);
-                ?>
-            </div>
+                <div class = "row">
+                    <?php
+                        if($_POST==NULL)
+                        {
+                           AfficherToutesLesImages();
+                        }
+                        else
+                        {
+                            AfficherImageCategorie($_POST['categorie'], $link);
+                        }
+                        closeConnexion($link);
+                    ?>
+                </div>
             </div>
         </section>
         <!-- About Section-->
