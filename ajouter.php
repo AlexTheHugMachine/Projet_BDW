@@ -10,11 +10,11 @@
   	// Get la description de l'image
   	$description = mysqli_real_escape_string($db, $_POST['description']);
   	$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
-	$check = getUser($nomFich, $description);
 	//get la categorie
-	//$catId=
-  	// répertoire du fichier d'images
-  	$sql = "INSERT INTO images (nomFich, description) VALUES ('$nomFich', '$description')";
+	$catId= $_POST["catID"];
+  	// répertoire du fichier d'images$
+  	link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+  	$sql = "INSERT INTO images (nomFich, description,catID) VALUES ('$nomFich', '$description','$catID')";
   	// Vérifier si l'image existe déjà
 	if (image_exists($target)) {
 		echo "Désolé, l'image existe déjà.";
