@@ -1,38 +1,41 @@
 <?php
 	include_once('./fonctions/bd.php');
 	include_once('./fonctions/utilisateur.php');
-	$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
-	$imageimageType = strtolower(pathinfo($target,PATHINFO_EXTENSION));
-    // Si le bouton de téléchargement est cliqué ...
+	$bdd = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+	$msg = "";
+    // Si le bouton de téléchargement est cliqué 
 	if (isset($_POST['envoyer'])) {
-  	$target = "assets/img/".basename($nomFich);
   	// Get le nom de l'image
   	$nomFich = $_FILES['nomFich']['name'];
-  	// Get la description de l'image
-  	$description = mysqli_real_escape_string($link, $_POST['description']);
-	//get la categorie
-	$catId= $_POST["catID"];
-  	// répertoire du fichier d'images$
-	$sql = "INSERT INTO Photo (nomFich, `description`,catID) VALUES ('$nomFich', '$description','$catID')";
-  	// Vérifier si l'image existe déjà
-	if (image_exists($target)) {
-		echo "Désolé, l'image existe déjà.";
+	// retourne lextension de nom de l'image
+	$typeimage = strtolower(pathinfo($target,PATHINFO_EXTENSION));
+	if($typeimage != "png" && $typeimage != "jpeg" && $typeimage != "gif" ) {
+    echo 'le fichier avec lextension $typeimage nest pas autorisee ,seules les images JPEG, PNG et GIF sont autorisées';
     }
-	// Vérifier la taille de l'image
-	if ($_imageS["update"]["size"] > 100000) {
-		echo "Désolé, votre image est trop grande.";
+	//Vérifier si l'image existe déjà
+	 if (image_exists($target)) {
+		echo "Cette image existe déjà !"
     }
-	// Autoriser certains formats d'images
-	if($imageimageType != "png" && $imageimageType != "jpeg" && $imageimageType != "gif" ) {
-    echo "Désolé, seules les imagesJPEG, PNG et GIF sont autorisées";
-    }
-  	// executer query
-  	executeQuery($link, $sql);
+	//Get la description de l'image
+  	$description = mysqli_real_escape_string($bdd, $_POST['description']);
+	get la categorie
+	$catId = mysqli_real_escape_string($bdd, $_POST['catId']);
+	get le ID 
+	$userId = mysqli_real_escape_string($_SESSION['id']);
+	//répertoire du fichier dimages
+	$target = "assets/img/".basename($nomFich);
+  	
+	$sql = "INSERT INTO photo (nomFich, description,catId, userId) VALUES ('$nomFich', '$description','$catId','$userId')";
+  	
+    
+  	//executer query
+  	executeQuery($bdd, $sql);
 
   	if (move_uploaded_file($_FILES['nomFich']['tmp_name'], $target)) {
-  		$msg = "Image téléchargée avec succès";
-  	}else{
-  		$msg = "Impossible de télécharger l'image";
+  		$msg = 'Image téléchargée avec succes';
+  	}
+	else{
+  		$msg = 'Impossible de télécharger limage';
   	}
   }
 ?>
@@ -92,12 +95,12 @@
                     <div class="divider-custom-line"></div>
 				</div>
 			<form action="ajouter.php" method="post" enctype="multipart/form-data">
-				telecharger une image:
-				<input type="file" name="update" id="update">
+				<label class="font-weight-bold" for="nomFich">telecharger une image:</label>
+				<input type="file" name="nomFich" id="update">
 				<br>
 				<br>
-				<label for="texte">description de l'image:</label>
-				<textarea id="texte" rows="4" cols="50" required></textarea>
+				<label for="description">description de l'image:</label>
+				<textarea id="description" name="description" rows="4" cols="50" required></textarea>
 				<br>
 				<br>
 				<label>Choisir une categorie:</label>
