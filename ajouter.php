@@ -14,13 +14,13 @@
     }
 	//Vérifier si l'image existe déjà
 	 if (image_exists($target)) {
-		echo "Cette image existe déjà !"
+		echo "Cette image existe déjà !";
     }
 	//Get la description de l'image
   	$description = mysqli_real_escape_string($bdd, $_POST['description']);
-	get la categorie
+	//get la categorie
 	$catId = mysqli_real_escape_string($bdd, $_POST['catId']);
-	get le ID 
+	//get le ID 
 	$userId = mysqli_real_escape_string($_SESSION['id']);
 	//répertoire du fichier dimages
 	$target = "assets/img/".basename($nomFich);
@@ -116,9 +116,5 @@
 				<input type="submit" value="envoyer" name="submit">
 			</form>
             </div>
-			<?php
-			$nomFich = $_FILES['nomFich']['name'];
-			echo $nomFich;
-			?>
 	</body>
 </html>
