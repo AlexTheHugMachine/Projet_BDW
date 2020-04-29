@@ -107,39 +107,5 @@
             executeUpdate($link, $query);
             header('Location: index-connected.php');
         }
-
-
-        /*$pseudo = $_SESSION['pseudo'];
-        //Get la description de l'image
-  	    $description = mysqli_real_escape_string($bdd, $_POST['description']);
-        //get la categorie
-        $catId = mysqli_real_escape_string($bdd, $_POST['catId']);
-        //get le ID
-        $userId = mysqli_real_escape_string($bdd, $pseudo);
-        // Get le nom de l'image
-        $nomFich = $_FILES['nomFich']['name'];
-        //répertoire du fichier dimages
-        $target = "assets/img/".basename($nomFich);
-        $sql = "INSERT INTO photo (nomFich, `description`,catId, userId) VALUES ('$nomFich', '$description','$catId','$userId')";
-	    // retourne lextension de nom de l'image
-	    $typeimage = strtolower(pathinfo($target,PATHINFO_EXTENSION));
-	    if($typeimage != "png" && $typeimage != "jpeg" && $typeimage != "gif" ) {
-            echo 'le fichier avec lextension $typeimage nest pas autorisee ,seules les images JPEG, PNG et GIF sont autorisées';
-        }
-	    //Vérifier si l'image existe déjà
-	    if (image_exists($target)) {
-		    echo "Cette image existe déjà !";
-        }
-  	
-    
-  	    //executer query
-  	    executeQuery($bdd, $sql);
-
-  	    if (move_uploaded_file($_FILES['nomFich']['tmp_name'], $target)) {
-  		    $msg = 'Image téléchargée avec succes';
-  	    }
-	    else{
-  		    $msg = 'Impossible de télécharger limage';
-  	    }*/
     }
 ?>
