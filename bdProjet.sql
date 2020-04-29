@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS Categorie (
   nomCat varchar(255) NOT NULL,
   PRIMARY KEY(catId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+INSERT INTO `Categorie` (`catId`, `nomCat`) VALUES ('1', 'Coronavirus');
+INSERT INTO `Categorie` (`catId`, `nomCat`) VALUES ('2', 'Anime');
 -- --------------------------------------------------------
 
 --
@@ -39,22 +40,24 @@ CREATE TABLE IF NOT EXISTS Categorie (
 --
 
 CREATE TABLE IF NOT EXISTS Photo (
-  photoId int NOT NULL,
+  photoId int NOT NULL AUTO_INCREMENT,
   nomFich varchar(250) NOT NULL,
   description varchar(250) NOT NULL,
   catId int NOT NULL,
   PRIMARY KEY (photoId),
   FOREIGN KEY (catId) REFERENCES Categorie(catId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `Photo` (`photoId`, `nomFich`, `description`, `catId`) VALUES ('1', 'topmemecoronavirus.jpg', 'Entre nous... C est pas si faux que ça', '1');
+INSERT INTO `Photo` (`photoId`, `nomFich`, `description`, `catId`) VALUES ('2', 'anime1.jpg', 'un grand classique des memes sur les animes !', '2');
 
 
 CREATE TABLE IF NOT EXISTS utilisateur (
   pseudo varchar(255) NOT NULL,
   mdp varchar(255) NOT NULL,
-  couleur varchar(255) NOT NULL,
   etat varchar(255) NOT NULL,
   PRIMARY KEY (pseudo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `utilisateur` (`pseudo`, `mdp`, `etat`) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', 'disconnected');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

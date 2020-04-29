@@ -1,45 +1,3 @@
-<?php
-	include_once('./fonctions/bd.php');
-	include_once('./fonctions/utilisateur.php');
-	$bdd = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
-    $msg = "";
-    
-    //Get la description de l'image
-  	$description = mysqli_real_escape_string($bdd, $_POST['description']);
-    //get la categorie
-    $catId = mysqli_real_escape_string($bdd, $_POST['catId']);
-    //get le ID
-    $userId = mysqli_real_escape_string($bdd, $_SESSION['pseudo']);
-    // Get le nom de l'image
-    $nomFich = $_FILES['nomFich']['name'];
-    //répertoire du fichier dimages
-    $target = "assets/img/".basename($nomFich);
-    $sql = "INSERT INTO photo (nomFich, `description`,catId, userId) VALUES ('$nomFich', '$description','$catId','$userId')";
-    // Si le bouton de téléchargement est cliqué 
-	if (isset($_POST['envoyer'])) {
-	    // retourne lextension de nom de l'image
-	    $typeimage = strtolower(pathinfo($target,PATHINFO_EXTENSION));
-	    if($typeimage != "png" && $typeimage != "jpeg" && $typeimage != "gif" ) {
-            echo 'le fichier avec lextension $typeimage nest pas autorisee ,seules les images JPEG, PNG et GIF sont autorisées';
-        }
-	    //Vérifier si l'image existe déjà
-	    if (image_exists($target)) {
-		    echo "Cette image existe déjà !";
-        }
-  	
-    
-  	    //executer query
-  	    executeQuery($bdd, $sql);
-
-  	    if (move_uploaded_file($_FILES['nomFich']['tmp_name'], $target)) {
-  		    $msg = 'Image téléchargée avec succes';
-  	    }
-	    else{
-  		    $msg = 'Impossible de télécharger limage';
-  	    }
-    }
-?>
-
 <!doctype html>
 <html lang="fr">
   <head>
@@ -104,7 +62,7 @@
 				<br>
 				<br>
 				<label>Choisir une categorie:</label>
-				<SELECT id="categorie" name="categorie">
+				<SELECT id="categorie" name="catId">
                         <?php
                             require_once("fonctions/requetesql.php");
                             $link = getConnection("localhost", "root", "", "ProjetBDW");
@@ -118,3 +76,70 @@
             </div>
 	</body>
 </html>
+
+<?php
+    session_start();
+	include_once('./fonctions/bd.php');
+	include_once('./fonctions/utilisateur.php');
+	$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+    $msg = "";
+    
+    // Si le bouton de téléchargement est cliqué 
+	if (isset($_POST['envoyer'])) {
+        $nomFich=pathinfo($_FILES['nomFich']['name']);
+        $extension=$nomFich['extension'];
+        $tabExtension=array("png", "gif", "jpeg", "jpg");
+        $taille_max = 100000;
+        $taille_fich = filesize($_FILES['nomFich']['tmp_name']);
+        if(!(in_array($extension, $tabExtension)))
+        {
+            echo 'le fichier avec l extension $extension n est pas autorisée ,seules les images JPEG, PNG et GIF sont autorisées </br>';
+        }
+        if($taille_fich>$taille_max)
+        {
+            echo 'L image est trop grande ! </br>';
+        }
+        else
+        {
+            $destination_fichier=dirname(__FILE__)."/assets/img/";
+            move_uploaded_file($_FILES['nomFich']['tmp_name'], $destination_fichier.$_SESSION['pseudo'].'_'.$_POST['description'].'.'.$extension);
+            $query = "INSERT INTO Photo("."nomFich,description,catId".") VALUES (" ."'" .$_SESSION["pseudo"]."_". $_POST["description"] .".".$extension."', " ."'" . $_POST["description"]. "', " ."'" . $_POST["catId"]. "')";
+            executeUpdate($link, $query);
+            header('Location: index-connected.php');
+        }
+
+
+        /*$pseudo = $_SESSION['pseudo'];
+        //Get la description de l'image
+  	    $description = mysqli_real_escape_string($bdd, $_POST['description']);
+        //get la categorie
+        $catId = mysqli_real_escape_string($bdd, $_POST['catId']);
+        //get le ID
+        $userId = mysqli_real_escape_string($bdd, $pseudo);
+        // Get le nom de l'image
+        $nomFich = $_FILES['nomFich']['name'];
+        //répertoire du fichier dimages
+        $target = "assets/img/".basename($nomFich);
+        $sql = "INSERT INTO photo (nomFich, `description`,catId, userId) VALUES ('$nomFich', '$description','$catId','$userId')";
+	    // retourne lextension de nom de l'image
+	    $typeimage = strtolower(pathinfo($target,PATHINFO_EXTENSION));
+	    if($typeimage != "png" && $typeimage != "jpeg" && $typeimage != "gif" ) {
+            echo 'le fichier avec lextension $typeimage nest pas autorisee ,seules les images JPEG, PNG et GIF sont autorisées';
+        }
+	    //Vérifier si l'image existe déjà
+	    if (image_exists($target)) {
+		    echo "Cette image existe déjà !";
+        }
+  	
+    
+  	    //executer query
+  	    executeQuery($bdd, $sql);
+
+  	    if (move_uploaded_file($_FILES['nomFich']['tmp_name'], $target)) {
+  		    $msg = 'Image téléchargée avec succes';
+  	    }
+	    else{
+  		    $msg = 'Impossible de télécharger limage';
+  	    }*/
+    }
+?>
