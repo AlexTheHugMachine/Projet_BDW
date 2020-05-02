@@ -47,8 +47,9 @@ if(isset($_POST['Deconnecter'])) {
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#galerie">Galerie</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#apropos">A propos</a></li>
                         <?php
+                            $dateUser = AffDate($_SESSION['date']);
                             $pseudo = $_SESSION['pseudo'];
-                            echo "<p>Connecté avec le compte : $pseudo</p>";
+                            echo "<p>Connecté avec le compte : $pseudo $dateUser</p>";
                         ?>
                         <form action ="index-connected.php" method="post">
                             <button name="Deconnecter" class="btn btn-primary btn">Se Déconnecter</button>
@@ -69,7 +70,17 @@ if(isset($_POST['Deconnecter'])) {
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Masthead Subheading-->
-                <div class="masthead-subheading font-weight-light mb-0">La nouvelle application pour partager vos memes et voir ceux de vos amis ou du monde entier !</div>
+                <div class="masthead-subheading font-weight-light mb-0">
+                <?php
+                    require_once("fonctions/requetesql.php");
+                     $req =  "SELECT pseudo ,COUNT(*) as nb FROM utilisateur";
+                     $nbuser= executeQuery($link, $req); 
+                     foreach($nbuser as $user)
+                     {
+                        echo "Nombre d'utilisateurs : ".$user['nb']." avec le compte administrateur";
+                     }
+                ?>
+                </div>
             </div>
         </header>
         <!-- Portfolio Section-->

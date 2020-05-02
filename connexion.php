@@ -51,6 +51,7 @@ require_once 'fonctions/bd.php';
 require_once 'fonctions/utilisateur.php';
 
 $stateMsg = "";
+$_SESSION['date']=date('d-m-Y H:i:s');
 
 if (isset($_POST["valider"])) {
   $pseudo = $_POST["pseudo"];

@@ -47,8 +47,9 @@ if(isset($_POST['Deconnecter'])) {
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#galerie">Galerie</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#apropos">A propos</a></li>
                         <?php
+                            $dateUser = AffDate($_SESSION['date']);
                             $pseudo = $_SESSION['pseudo'];
-                            echo "<p>Connecté avec le compte : $pseudo</p>";
+                            echo "<p>Connecté avec le compte : $pseudo $dateUser</p>";
                         ?>
                         <form action ="index-connected.php" method="post">
                             <button name="Deconnecter" class="btn btn-primary btn">Se Déconnecter</button>
