@@ -58,6 +58,7 @@ require_once 'fonctions/utilisateur.php';
 
 $stateMsg = "";
 
+// Si on clique sur valider alors
 if (isset($_POST["valider"])) {
   $pseudo = $_POST["pseudo"];
   $hashMdp = md5($_POST["mdp"]);
@@ -66,14 +67,17 @@ if (isset($_POST["valider"])) {
   $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
   $available = checkAvailability($pseudo, $link);
 
+  //On vérifie les conditions pour l'inscription
   if ($hashMdp == $hashConfirmMdp) {
     if ($available) {
       register($pseudo, $hashMdp, $link);
       header('Location: connexion.php?subscribe=yes');
       exit();
+      // Si le pseudo demandé existe déjà
     } else {
       echo "Le pseudo demandé est déjà utilisé, choisissez en un autre";
     }
+    // Si le mot de passe rentré n'est pas le même pour la confirmation de mot de passe
   } else {
      echo "Les mots de passe ne correspondent pas, veuillez réessayer";
   }

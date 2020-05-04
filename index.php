@@ -62,6 +62,7 @@
                     <SELECT id="categorie" name="categorie">
                         <OPTION name="Tout"> Tout</OPTION>
                         <?php
+                            // On affiche la selection d'image par catégorie, en affichant toutes les catégories de la base de données
                             require_once("fonctions/requetesql.php");
                             $link = getConnection("localhost", "root", "", "ProjetBDW");
                             RecupImageCategorie($link);
@@ -74,6 +75,7 @@
             <div class = "img-responsive">
                 <div class = "row">
                     <?php
+                        //On gère le cas où aucune catégorie n'a été selectionnée
                         if($_POST==NULL)
                         {
                            AfficherToutesLesImages();

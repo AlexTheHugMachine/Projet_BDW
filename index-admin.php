@@ -7,6 +7,7 @@ include_once('./fonctions/utilisateur.php');
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 $pseudo = $_SESSION['pseudo'];
 
+// On définit l'action pour se déconnecter
 if(isset($_POST['Deconnecter'])) {
 	setDisconnected($pseudo, $link);
 	session_unset();
@@ -47,6 +48,7 @@ if(isset($_POST['Deconnecter'])) {
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#galerie">Galerie</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#apropos">A propos</a></li>
                         <?php
+                            // On affiche le temps de connexion ainsi que le pseudo de l'utilisateur
                             $dateUser = AffDate($_SESSION['date']);
                             $pseudo = $_SESSION['pseudo'];
                             echo "<p>Connecté avec le compte : $pseudo $dateUser</p>";
@@ -72,6 +74,7 @@ if(isset($_POST['Deconnecter'])) {
                 <!-- Masthead Subheading-->
                 <div class="masthead-subheading font-weight-light mb-0">
                 <?php
+                    // On affiche le nombre d'utilisateurs qu'il y a inscrits dans la base de données. Attention l'administrateur en fait parti
                     require_once("fonctions/requetesql.php");
                      $req =  "SELECT pseudo ,COUNT(*) as nb FROM utilisateur";
                      $nbuser= executeQuery($link, $req); 
@@ -102,6 +105,7 @@ if(isset($_POST['Deconnecter'])) {
                     <SELECT id="categorie" name="categorie" required>
                         <OPTION name="Tout"> Tout</OPTION>
                         <?php
+                            // On affiche la selection d'image par catégorie, en affichant toutes les catégories de la base de données
                             require_once("fonctions/requetesql.php");
                             $link = getConnection("localhost", "root", "", "ProjetBDW");
                             RecupImageCategorie($link);
@@ -114,6 +118,7 @@ if(isset($_POST['Deconnecter'])) {
             <div class = "img-responsive">
                 <div class = "row">
                     <?php
+                        //On gère le cas où aucune catégorie n'a été selectionnée
                         if($_POST==NULL)
                         {
                             AfficherToutesLesImages();

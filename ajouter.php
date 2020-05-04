@@ -84,21 +84,24 @@
 	$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
     $msg = "";
     
-    // Si le bouton de téléchargement est cliqué 
+    // Si le bouton de téléchargement est cliqué
 	if (isset($_POST['envoyer'])) {
         $nomFich=pathinfo($_FILES['nomFich']['name']);
         $extension=$nomFich['extension'];
         $tabExtension=array("png", "gif", "jpeg", "jpg");
         $taille_max = 100000;
         $taille_fich = filesize($_FILES['nomFich']['tmp_name']);
+        // On vérifie si l'extension est dans le tableau d'extension déjà définit
         if(!(in_array($extension, $tabExtension)))
         {
-            echo 'le fichier avec l extension $extension n est pas autorisée ,seules les images JPEG, PNG et GIF sont autorisées </br>';
+            echo 'l extension du fichier n est pas autorisée ,seules les images JPEG, PNG et GIF sont autorisées </br>';
         }
+        // On vérifie que la taille du fichier ne dépasse pas la limite imposée
         if($taille_fich>$taille_max)
         {
             echo 'L image est trop grande ! </br>';
         }
+        // Si les critères sont respectés alors on envoie l'image dans la base de données à l'aide de la requête SQL
         else
         {
             $destination_fichier=dirname(__FILE__)."/assets/img/";

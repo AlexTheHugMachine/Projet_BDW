@@ -51,8 +51,10 @@ require_once 'fonctions/bd.php';
 require_once 'fonctions/utilisateur.php';
 
 $stateMsg = "";
+// On initialise la date pour pouvoir voir le temps de connexion lorsque l'on est connecté
 $_SESSION['date']=date('d-m-Y H:i:s');
 
+// Si on clique sur le boutton valider
 if (isset($_POST["valider"])) {
   $pseudo = $_POST["pseudo"];
   $hashMdp = md5($_POST["mdp"]);
@@ -60,20 +62,24 @@ if (isset($_POST["valider"])) {
   $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
   $check = getUser($pseudo, $hashMdp, $link);
 
+  //Si le couple pseudo/mot de passe existe déjà dans la base de donnée alors :
   if (getUser($pseudo, $hashMdp, $link) == TRUE) {
     $_SESSION["pseudo"]= $pseudo;
     $_SESSION["mdp"]= $hashMdp;
     setConnected($pseudo, $link);
+    // Si le pseudo rentré est "admin", alors on se connecte sur la page administrateur
     if($_POST["pseudo"]=="admin")
     {
       header('Location: index-admin.php');
     }
+    // Sinon on se connecte sur la page d'utilisateur lambda
     else
     {
       header('Location: index-connected.php?subscribe=yes');
     }
     exit();
   } 
+  // Sinon on envoie un message disant qu'il n'existe pas de couple dans la base de données correspondant au couple rentré
   else {
     $stateMsg = "Le pseudo ou mot de passe rentré, ne correspond à aucun compte enregistré";
   }
